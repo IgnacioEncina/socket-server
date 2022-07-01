@@ -5,7 +5,8 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 
 
-const server = new Server();
+// const server = new Server();   // Comentariado en video 23      IMPORTANTE!!!
+const server = Server.instance;
 
 // BodyParser   -  Video 16         (ojo va antes de las rutas)
     // serializa y genera un objeto javascript(json) para usar en servicios express
