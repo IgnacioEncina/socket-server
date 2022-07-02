@@ -43,12 +43,20 @@ export default class Server {
 
         this.io.on('connection', cliente => {
 
-            console.log('Cliente conectado');
+            // console.log('Cliente conectado' );
 
             // Video 27  -  detectar la desconexion de un usuario - Servidor
             // cliente.on('disconnect', () => {
             //     console.log('Cliente Desconectado');
-            // });                                                  // Este codigo se crea en sockets.ts
+            // });            
+
+            // Conectar cliente -   Video 40
+            socket.conectarCliente( cliente );
+
+            //Configurar Usuario
+            socket.configUsuario( cliente, this.io )                                      // Este codigo se crea en sockets.ts
+
+            console.log( cliente.id );
 
             // Mensajes
             socket.mensaje( cliente, this.io );
