@@ -28,7 +28,9 @@ export default class Server {
         this.port = SERVER_PORT;
         
         this.httpServer = new http.Server( this.app );
-        this.io = new socketIO.Server( this.httpServer, { cors: { origin: true, credentials: true } } );
+        this.io = new socketIO.Server( this.httpServer, 
+                                        { cors: { origin: true, credentials: true } } 
+                                        );
         
         this.escucharSockets();
     }
@@ -36,6 +38,7 @@ export default class Server {
     public static get instance() {
         return this._instance || ( this._instance = new this() );
     }
+
 
     private escucharSockets(){
 
@@ -51,18 +54,20 @@ export default class Server {
             // });            
 
             // Conectar cliente -   Video 40
-            socket.conectarCliente( cliente );
+            socket.conectarCliente( cliente, this.io );
 
             //Configurar Usuario
             socket.configUsuario( cliente, this.io )                                      // Este codigo se crea en sockets.ts
 
-            console.log( cliente.id );
+            // Obtener Usuarios activos          -  Video 54 (Tarea)
+            socket.obtenerUsuarios( cliente, this.io );
+
 
             // Mensajes
             socket.mensaje( cliente, this.io );
 
             // Desconectar
-            socket.desconectar( cliente );
+            socket.desconectar( cliente, this.io );
 
 
         });
